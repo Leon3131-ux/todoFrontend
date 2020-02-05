@@ -1,0 +1,20 @@
+<table class="table table-dark table-bordered table-hover">
+  <thead>
+    <tr>
+      <td>#</td>
+      <td>Title</td>
+      <td>Description</td>
+      <td>Done</td>
+      <td>Date</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let taskDto of tasks" (click)="selectedEntry.emit(taskDto)" [class.bg-primary]="currentEntryId === taskDto.id">
+      <td>{{ taskDto.id }}</td>
+      <td>{{ taskDto.title }}</td>
+      <td>{{ taskDto.description }}</td>
+      <td>{{ taskDto.done }}</td>
+      <td>{{ taskDto.date }}</td>
+    </tr>
+  </tbody>
+</table>
