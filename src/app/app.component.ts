@@ -14,11 +14,14 @@ export class AppComponent implements OnInit, OnChanges {
   currentEntryId: number = null;
   tasks: TaskDto[];
   @Input() savedTask: TaskDto;
+  taskFilter: any;
 
   ngOnInit(): void {
-    this.taskService.findAll().subscribe(data => {
+    const taskFilter = JSON.parse(localStorage.getItem('taskFilter'));
+    this.taskService.find(taskFilter).subscribe(data => {
       this.tasks = data;
     });
+    this.taskFilter = taskFilter;
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.savedTask.currentValue) {
@@ -47,5 +50,12 @@ export class AppComponent implements OnInit, OnChanges {
   resetValues() {
     this.currentEntry = null;
     this.currentEntryId = null;
+  }
+  onFetchTasks(value: any) {
+    this.taskService.find(value).subscribe(data => {
+      this.tasks = data;
+      localStorage.setItem('taskFilter', JSON.stringify(value));
+      this.taskFilter = value;
+    });
   }
 }

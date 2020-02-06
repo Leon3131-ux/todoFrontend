@@ -17,15 +17,17 @@
             <input class="bg-dark" type="text" class="form-control" id="ID" placeholder="ID" formControlName="id">
           </div>
           <div class="form-group">
-            <input type="text" [className]="getErrors('title').length > 0 ? 'form-control is-invalid' : 'form-control'" id="titleField" placeholder="Title" formControlName="title">
+            <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : (getErrors('title').length > 0)}" id="titleField" placeholder="Title" formControlName="title">
             <p *ngFor="let error of getErrors('title')" class="invalid-feedback fieldErrors" id="titleFieldError">{{error.message}}</p>
           </div>
           <div class="form-group">
-            <textarea [className]="getErrors('description').length > 0 ? 'form-control is-invalid' : 'form-control'" id="descriptionField" placeholder="Description" formControlName="description"></textarea>
+            <textarea class="form-control" id="description" [ngClass]="{
+            'is-invalid' : (getErrors('description').length > 0 || (saveTaskForm.get('description').invalid && (saveTaskForm.get('description').touched || saveTaskForm.get('description').dirty)))
+            }" id="descriptionField" placeholder="Description" formControlName="description"></textarea>
             <p *ngFor="let error of getErrors('description')" class="invalid-feedback fieldErrors" id="descriptionFieldError">{{error.message}}</p>
           </div>
           <div class="form-group">
-            <input [className]="getErrors('date').length > 0 ? 'form-control is-invalid' : 'form-control'" type="text" id="dateField" placeholder="Date" formControlName="date">
+            <input type="date" class="form-control" [ngClass]="{ 'is-invalid' : (getErrors('date').length > 0)}" type="text" id="dateField" placeholder="Date" formControlName="date">
             <p *ngFor="let error of getErrors('date')" class="invalid-feedback fieldErrors" id="dateFieldError">{{error.message}}</p>
           </div>
           <div>

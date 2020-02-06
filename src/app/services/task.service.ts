@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import { TaskDto } from '../classes/task-dto';
 import { Observable } from 'rxjs';
 import {TaskAjaxResponse} from '../classes/task-ajax-response';
@@ -15,8 +15,15 @@ export class TaskService {
     this.saveTasksUrl = 'http://localhost:8080/landingPage/saveTask';
     this.deleteTasksUrl = 'http://localhost:8080/landingPage/deleteTask';
   }
-  public findAll(): Observable<TaskDto[]> {
-    return this.http.get<TaskDto[]>(this.getTasksUrl);
+  public find(taskFilter: any): Observable<TaskDto[]> {
+    let taskFilterString;
+    if (taskFilter === null) {
+      taskFilterString = '';
+    } else {
+      taskFilterString = taskFilter.toString();
+    }
+    const params = new HttpParams().append('taskFilter', taskFilterString);
+    return this.http.get<TaskDto[]>(this.getTasksUrl, {params});
   }
   public saveTask(taskDto: TaskDto): Observable<TaskAjaxResponse> {
     return this.http.post<TaskAjaxResponse>(this.saveTasksUrl, taskDto);

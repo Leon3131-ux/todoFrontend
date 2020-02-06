@@ -11,5 +11,7 @@ export class TaskTableComponent{
   @Output() selectedEntry = new EventEmitter();
   @Input() tasks: TaskDto[];
   @Input()currentEntryId: TaskDto;
+  @Output()fetchTasks = new EventEmitter();
+  @Input()taskFilter: any;
 
 }

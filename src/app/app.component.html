@@ -1,3 +1,2 @@
-<app-navbar></app-navbar>
-<app-task-table [tasks]="tasks" (selectedEntry)="onSelectedEntry($event)" [currentEntryId]="currentEntryId"></app-task-table>
+<app-task-table [tasks]="tasks" (selectedEntry)="onSelectedEntry($event)" [currentEntryId]="currentEntryId" (fetchTasks)="onFetchTasks($event)" [taskFilter]="taskFilter"></app-task-table>
 <app-task-save [currentEntry]="currentEntry" (savedTask)="onSavedTask($event)" (formReset)="onFormReset()" (deletedTask)="onDeleteTask()"></app-task-save>

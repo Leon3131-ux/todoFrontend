@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {TaskDto} from '../classes/task-dto';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../services/task.service';
 import {TaskAjaxResponse} from '../classes/task-ajax-response';
 import {ModalDirective} from 'ngx-bootstrap';
@@ -21,9 +21,15 @@ export class TaskSaveComponent implements OnChanges {
   taskAjaxResponse: TaskAjaxResponse;
   saveTaskForm = new FormGroup({
     id: new FormControl({value: '', disabled: true}),
-    title: new FormControl(''),
-    description: new FormControl(''),
-    date: new FormControl(''),
+    title: new FormControl('', [
+      Validators.required
+    ]),
+    description: new FormControl('', [
+      Validators.required
+    ]),
+    date: new FormControl('', [
+      Validators.required
+    ]),
     done: new FormControl(false)
   });
   constructor(private taskService: TaskService) { }
@@ -50,11 +56,6 @@ export class TaskSaveComponent implements OnChanges {
     this.resetForm();
     this.showChildModal();
   }
-  clearFormErrors() {
-    this.taskAjaxResponse = undefined;
-    const fields = document.querySelectorAll('.form-control');
-    fields.forEach(value => {value.classList.remove('is-invalid'); });
-  }
   deleteTask() {
     this.taskService.deleteTask(this.currentEntry.id).subscribe(() => {
       this.deletedTask.emit();
@@ -68,7 +69,6 @@ export class TaskSaveComponent implements OnChanges {
       done: false
     });
     this.formReset.emit();
-    this.clearFormErrors();
   }
   showChildModal(): void {
     this.childModal.show();
@@ -84,5 +84,8 @@ export class TaskSaveComponent implements OnChanges {
     } else {
       return this.taskAjaxResponse.errors.filter(error => error.field === fieldName);
     }
+  }
+  getTrue() {
+    return true;
   }
 }

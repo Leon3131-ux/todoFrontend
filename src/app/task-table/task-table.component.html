@@ -1,4 +1,16 @@
-<table class="table table-dark table-bordered table-hover">
+<div class="btn-group mb-2" dropdown>
+  <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-primary dropdown-toggle" aria-controls="dropdown-basic">Select Task Type <span class="caret"></span>
+  </button>
+  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+      role="menu" aria-labelledby="button-basic">
+    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(null)">All Tasks <i *ngIf="taskFilter === null" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(true)">Finished Tasks <i *ngIf="taskFilter === true" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(false)">Unfinished Tasks <i *ngIf="taskFilter === false" class="fa fa-check"></i></button></li>
+  </ul>
+</div>
+
+
+<table class="table table-dark table-bordered table-hover" style="table-layout: fixed">
   <thead>
     <tr>
       <td>#</td>
