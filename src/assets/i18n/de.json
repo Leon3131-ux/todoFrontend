@@ -1,0 +1,41 @@
+{
+  "general": {
+    "task": "aufgabe",
+    "true": "ja",
+    "false": "nein"
+  },
+  "fields": {
+    "general": {
+      "title": "titel",
+      "description": "beschreibung",
+      "date": "datum",
+      "done": "erledigt"
+    },
+    "errors": {
+      "required": "wird benötigt",
+      "invalid": "ist ungültig",
+      "alreadyUsed": "wird schon benutzt"
+    }
+  },
+  "dropdown": {
+    "selection": {
+      "tasks": {
+        "all": "alle aufgaben",
+        "finished": "erledigte aufgaben",
+        "unfinished": "zu erledigende aufgaben"
+      }
+    },
+    "title": {
+      "tasks": {
+        "type": "aufgabentyp auswählen"
+      }
+    }
+  },
+  "buttons": {
+    "submit": "abschicken",
+    "edit": "bearbeiten",
+    "delete": "löschen",
+    "reset": "zurücksetzten",
+    "new": "neu"
+  }
+}

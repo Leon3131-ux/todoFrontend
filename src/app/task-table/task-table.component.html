@@ -1,11 +1,11 @@
 <div class="btn-group mb-2" dropdown>
-  <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-primary dropdown-toggle" aria-controls="dropdown-basic">Select Task Type <span class="caret"></span>
+  <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-primary dropdown-toggle" aria-controls="dropdown-basic">{{ 'dropdown.title.tasks.type' | translate | titlecase}}<span class="caret"></span>
   </button>
   <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
       role="menu" aria-labelledby="button-basic">
-    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(null)">All Tasks <i *ngIf="taskFilter === null" class="fa fa-check"></i></button></li>
-    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(true)">Finished Tasks <i *ngIf="taskFilter === true" class="fa fa-check"></i></button></li>
-    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(false)">Unfinished Tasks <i *ngIf="taskFilter === false" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(null)">{{ 'dropdown.selection.tasks.all' | translate | titlecase}} <i *ngIf="taskFilter === null" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(true)">{{ 'dropdown.selection.tasks.finished' | translate | titlecase}} <i *ngIf="taskFilter === true" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item" (click)="fetchTasks.emit(false)">{{ 'dropdown.selection.tasks.unfinished' | translate | titlecase}} <i *ngIf="taskFilter === false" class="fa fa-check"></i></button></li>
   </ul>
 </div>
 
@@ -13,20 +13,22 @@
 <table class="table table-dark table-bordered table-hover" style="table-layout: fixed">
   <thead>
     <tr>
-      <td>#</td>
-      <td>Title</td>
-      <td>Description</td>
-      <td>Done</td>
-      <td>Date</td>
+      <td>ID</td>
+      <td>{{ 'fields.general.title' | translate | titlecase}}</td>
+      <td>{{ 'fields.general.description' | translate | titlecase}}</td>
+      <td>{{ 'fields.general.done' | translate | titlecase}}</td>
+      <td>{{ 'fields.general.date' | translate | titlecase}}</td>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let taskDto of tasks" (click)="selectedEntry.emit(taskDto)" [class.bg-primary]="currentEntryId === taskDto.id">
+  <ng-container *ngFor="let taskDto of tasks" >
+    <tr *ngIf="taskDto.done === taskFilter || taskFilter === null" [class.bg-primary]="currentEntryId === taskDto.id" (click)="selectedEntry.emit(taskDto)">
       <td>{{ taskDto.id }}</td>
       <td>{{ taskDto.title }}</td>
       <td>{{ taskDto.description }}</td>
-      <td>{{ taskDto.done }}</td>
+      <td>{{ 'general.' + taskDto.done.toString() | translate }}</td>
       <td>{{ taskDto.date }}</td>
     </tr>
+  </ng-container>
   </tbody>
 </table>

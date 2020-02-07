@@ -1,0 +1,41 @@
+{
+  "general": {
+    "task": "task",
+    "true": "true",
+    "false": "false"
+  },
+  "fields": {
+    "general": {
+      "title": "title",
+      "description": "description",
+      "date": "date",
+      "done": "done"
+    },
+    "errors": {
+      "required": "is required",
+      "invalid": "is invalid",
+      "alreadyUsed": "is already used"
+    }
+  },
+  "dropdown": {
+    "selection": {
+      "tasks": {
+        "all": "all tasks",
+        "finished": "finished tasks",
+        "unfinished": "unfinished tasks"
+      }
+    },
+    "title": {
+      "tasks": {
+        "type": "select task type"
+      }
+    }
+  },
+  "buttons": {
+    "submit": "submit",
+    "edit": "edit",
+    "delete": "delete",
+    "reset": "reset",
+    "new": "new"
+  }
+}

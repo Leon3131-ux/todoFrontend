@@ -1,12 +1,11 @@
-<button type="button" class="btn btn-outline-primary mr-3" (click)="showNewTask()">New Tasks</button>
-<button type="button" class="btn btn-outline-primary mr-3" (click)="showChildModal()" [disabled]="currentEntry === null">Edit Task</button>
-<button type="button" class="btn btn-outline-danger mr-3" (click)="deleteTask()" [disabled]="currentEntry === null">Delete Task</button>
+<button type="button" class="btn btn-outline-primary mr-3" (click)="showNewTask()">{{ 'buttons.new' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
+<button type="button" class="btn btn-outline-primary mr-3" (click)="showChildModal()" [disabled]="currentEntry === null">{{ 'buttons.edit' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
+<button type="button" class="btn btn-outline-danger mr-3" (click)="deleteTask()" [disabled]="currentEntry === null">{{ 'buttons.delete' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
 
 <div bsModal #saveTaskModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name" (onHidden)="resetForm()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-child-name" class="modal-title pull-left">Child modal</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -14,31 +13,29 @@
       <div class="modal-body">
         <form [formGroup]="saveTaskForm">
           <div class="form-group">
-            <input class="bg-dark" type="text" class="form-control" id="ID" placeholder="ID" formControlName="id">
+            <input type="text" class="form-control" id="ID" placeholder="ID" formControlName="id">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : (getErrors('title').length > 0)}" id="titleField" placeholder="Title" formControlName="title">
-            <p *ngFor="let error of getErrors('title')" class="invalid-feedback fieldErrors" id="titleFieldError">{{error.message}}</p>
+            <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : hasError('title')}" id="titleField" placeholder="{{ 'fields.general.title' |translate | titlecase }}" formControlName="title">
+            <p *ngFor="let errorMsg of getErrors('title')" class="invalid-feedback">{{ 'fields.general.title' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
           </div>
           <div class="form-group">
-            <textarea class="form-control" id="description" [ngClass]="{
-            'is-invalid' : (getErrors('description').length > 0 || (saveTaskForm.get('description').invalid && (saveTaskForm.get('description').touched || saveTaskForm.get('description').dirty)))
-            }" id="descriptionField" placeholder="Description" formControlName="description"></textarea>
-            <p *ngFor="let error of getErrors('description')" class="invalid-feedback fieldErrors" id="descriptionFieldError">{{error.message}}</p>
+            <textarea class="form-control" [ngClass]="{ 'is-invalid' : hasError('description')}" id="descriptionField" placeholder="{{ 'fields.general.description' | translate | titlecase }}" formControlName="description"></textarea>
+            <p *ngFor="let errorMsg of getErrors('description')" class="invalid-feedback">{{ 'fields.general.description' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
           </div>
           <div class="form-group">
-            <input type="date" class="form-control" [ngClass]="{ 'is-invalid' : (getErrors('date').length > 0)}" type="text" id="dateField" placeholder="Date" formControlName="date">
-            <p *ngFor="let error of getErrors('date')" class="invalid-feedback fieldErrors" id="dateFieldError">{{error.message}}</p>
+            <input [ngClass]="{ 'is-invalid' : hasError('date')}" class="form-control" type="text" id="dateField" placeholder="{{ 'fields.general.date' | translate | titlecase }}" formControlName="date">
+            <p *ngFor="let errorMsg of getErrors('date')" class="invalid-feedback">{{ 'fields.general.date' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
           </div>
           <div>
-            <label class="w-100" for="doneCheckBox">Done</label>
+            <label class="w-100" for="doneCheckBox">{{ 'fields.general.done' | translate | titlecase}}</label>
             <input type="checkbox" id="doneCheckBox" formControlName="done">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline-primary ml-3" (click)="submitTaskDto()">Submit</button>
-        <button class="btn btn-outline-danger ml-3" (click)="resetForm()">Reset</button>
+        <button class="btn btn-outline-primary ml-3" (click)="submitTaskDto()">{{ 'buttons.submit' | translate | titlecase }}</button>
+        <button class="btn btn-outline-danger ml-3" (click)="resetForm()">{{ 'buttons.reset' | translate | titlecase }}</button>
       </div>
     </div>
   </div>

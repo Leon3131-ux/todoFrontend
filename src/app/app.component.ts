@@ -1,14 +1,15 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {TaskDto} from './classes/task-dto';
 import {TaskService} from './services/task.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnChanges {
-  constructor(private taskService: TaskService) { }
+export class AppComponent implements OnInit {
+  constructor(private taskService: TaskService, private translate: TranslateService) { }
   title = 'angProject';
   currentEntry: TaskDto = null;
   currentEntryId: number = null;
@@ -22,11 +23,7 @@ export class AppComponent implements OnInit, OnChanges {
       this.tasks = data;
     });
     this.taskFilter = taskFilter;
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.savedTask.currentValue) {
-      console.log(this.savedTask);
-    }
+    this.translate.setDefaultLang(navigator.language);
   }
   onSelectedEntry(selectedEntry: TaskDto) {
     this.currentEntry = selectedEntry;
@@ -52,10 +49,7 @@ export class AppComponent implements OnInit, OnChanges {
     this.currentEntryId = null;
   }
   onFetchTasks(value: any) {
-    this.taskService.find(value).subscribe(data => {
-      this.tasks = data;
-      localStorage.setItem('taskFilter', JSON.stringify(value));
-      this.taskFilter = value;
-    });
+    localStorage.setItem('taskFilter', JSON.stringify(value));
+    this.taskFilter = value;
   }
 }
