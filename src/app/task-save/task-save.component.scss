@@ -1,0 +1,50 @@
+div {
+  &.modal-content {
+    background-color: #202224;
+  }
+}
+div.modal-body {
+  input {
+    background-color: #5a5e61;
+    color: whitesmoke;
+    &.form-control::-ms-input-placeholder {
+      color: #9e9e9e;
+    }
+    &.form-control:-ms-input-placeholder {
+      color: #9e9e9e;
+    }
+    &.form-control::-moz-placeholder {
+      color: #9e9e9e;
+    }
+    &.form-control:-moz-placeholder {
+      color: #9e9e9e;
+    }
+  }
+  textarea {
+    background-color: #5a5e61;
+    color: whitesmoke;
+    &.form-control::-ms-input-placeholder {
+      color: #9e9e9e;
+    }
+    &.form-control:-ms-input-placeholder {
+      color: #9e9e9e;
+    }
+    &.form-control::-moz-placeholder {
+      color: #9e9e9e;
+    }
+    &.form-control:-moz-placeholder {
+      color: #9e9e9e;
+    }
+  }
+  form{
+    p.invalid-feedback {
+      color: #ff2121;
+    }
+    input.is-invalid {
+      border-color: #ff2121;
+    }
+    textarea.is-invalid {
+      border-color: #ff2121;
+    }
+  }
+}

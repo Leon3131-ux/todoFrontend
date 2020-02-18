@@ -1,41 +1,38 @@
-<button type="button" class="btn btn-outline-primary mr-3" (click)="showNewTask()">{{ 'buttons.new' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
-<button type="button" class="btn btn-outline-primary mr-3" (click)="showChildModal()" [disabled]="currentEntry === null">{{ 'buttons.edit' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
-<button type="button" class="btn btn-outline-danger mr-3" (click)="deleteTask()" [disabled]="currentEntry === null">{{ 'buttons.delete' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
-
 <div bsModal #saveTaskModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name" (onHidden)="resetForm()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+        <h3 class="text-white">{{ 'modal.title.tasks.save' | translate }}</h3>
+        <button type="button" class="close pull-right text-white" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form [formGroup]="saveTaskForm">
           <div class="form-group">
-            <input type="text" class="form-control" id="ID" placeholder="ID" formControlName="id">
-          </div>
-          <div class="form-group">
+            <label class="w-100 text-white">{{ 'fields.general.title' | translate | titlecase}}</label>
             <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : hasError('title')}" id="titleField" placeholder="{{ 'fields.general.title' |translate | titlecase }}" formControlName="title">
             <p *ngFor="let errorMsg of getErrors('title')" class="invalid-feedback">{{ 'fields.general.title' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
           </div>
           <div class="form-group">
+            <label class="w-100 text-white">{{ 'fields.general.description' | translate | titlecase}}</label>
             <textarea class="form-control" [ngClass]="{ 'is-invalid' : hasError('description')}" id="descriptionField" placeholder="{{ 'fields.general.description' | translate | titlecase }}" formControlName="description"></textarea>
             <p *ngFor="let errorMsg of getErrors('description')" class="invalid-feedback">{{ 'fields.general.description' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
           </div>
           <div class="form-group">
-            <input [ngClass]="{ 'is-invalid' : hasError('date')}" class="form-control" type="text" id="dateField" placeholder="{{ 'fields.general.date' | translate | titlecase }}" formControlName="date">
+            <label class="w-100 text-white">{{ 'fields.general.date' | translate | titlecase}}</label>
+            <input [ngClass]="{ 'is-invalid' : hasError('date')}" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" class="form-control" type="text" id="dateField" placeholder="{{ 'fields.general.date' | translate | titlecase }}" formControlName="date">
             <p *ngFor="let errorMsg of getErrors('date')" class="invalid-feedback">{{ 'fields.general.date' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
           </div>
-          <div>
-            <label class="w-100" for="doneCheckBox">{{ 'fields.general.done' | translate | titlecase}}</label>
-            <input type="checkbox" id="doneCheckBox" formControlName="done">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="doneCheckBox" formControlName="done">
+            <label class="custom-control-label text-white" for="doneCheckBox">{{ 'fields.general.done' | translate | titlecase}}</label>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline-primary ml-3" (click)="submitTaskDto()">{{ 'buttons.submit' | translate | titlecase }}</button>
-        <button class="btn btn-outline-danger ml-3" (click)="resetForm()">{{ 'buttons.reset' | translate | titlecase }}</button>
+        <button class="btn btn-info ml-3" (click)="submitTask()">{{ 'buttons.submit' | translate | titlecase }}</button>
+        <button class="btn btn-danger ml-3" (click)="resetFormToLastState()">{{ 'buttons.reset' | translate | titlecase }}</button>
       </div>
     </div>
   </div>

@@ -1,2 +1,15 @@
-<app-task-table [tasks]="tasks" (selectedEntry)="onSelectedEntry($event)" [currentEntryId]="currentEntryId" (fetchTasks)="onFetchTasks($event)" [taskFilter]="taskFilter"></app-task-table>
-<app-task-save [currentEntry]="currentEntry" (savedTask)="onSavedTask($event)" (formReset)="onFormReset()" (deletedTask)="onDeleteTask()"></app-task-save>
+<app-task-table [tasks]="tasks"
+                (selectedEntry)="onSelectedEntry($event)"
+                [currentEntry]="currentEntry"
+                (updateTable)="onTableUpdate($event)"
+                [taskFilter]="taskFilter"
+                (deleteEntry)="onDeleteTask($event)"
+>
+</app-task-table>
+
+<button type="button" class="btn btn-info mr-3" (click)="createNewTask()">{{ 'buttons.new' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
+
+<app-task-save [currentEntry]="currentEntry"
+               (savedTask)="onSaveTask($event)"
+>
+</app-task-save>

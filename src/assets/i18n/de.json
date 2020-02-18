@@ -1,33 +1,36 @@
 {
   "general": {
-    "task": "aufgabe",
+    "task": "Aufgabe",
     "true": "ja",
-    "false": "nein"
+    "false": "nein",
+    "actions": "Aktionen",
+    "delete": "löschen"
   },
   "fields": {
     "general": {
-      "title": "titel",
-      "description": "beschreibung",
-      "date": "datum",
+      "title": "Titel",
+      "description": "Beschreibung",
+      "date": "Datum",
       "done": "erledigt"
     },
     "errors": {
       "required": "wird benötigt",
       "invalid": "ist ungültig",
-      "alreadyUsed": "wird schon benutzt"
+      "alreadyUsed": "wird schon benutzt",
+      "bsDate": "ist ungültig"
     }
   },
   "dropdown": {
     "selection": {
       "tasks": {
-        "all": "alle aufgaben",
-        "finished": "erledigte aufgaben",
-        "unfinished": "zu erledigende aufgaben"
+        "all": "alle Aufgaben",
+        "finished": "erledigte Aufgaben",
+        "unfinished": "zu erledigende Aufgaben"
       }
     },
     "title": {
       "tasks": {
-        "type": "aufgabentyp auswählen"
+        "type": "Aufgabentyp auswählen"
       }
     }
   },
@@ -37,5 +40,12 @@
     "delete": "löschen",
     "reset": "zurücksetzten",
     "new": "neu"
+  },
+  "modal": {
+    "title": {
+      "tasks": {
+        "save": "Aufgabe bearbeiten oder erstellen"
+      }
+    }
   }
 }

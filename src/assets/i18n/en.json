@@ -1,20 +1,23 @@
 {
   "general": {
-    "task": "task",
+    "task": "Task",
     "true": "true",
-    "false": "false"
+    "false": "false",
+    "actions": "actions",
+    "delete": "delete"
   },
   "fields": {
     "general": {
-      "title": "title",
-      "description": "description",
-      "date": "date",
-      "done": "done"
+      "title": "Title",
+      "description": "Description",
+      "date": "Date",
+      "done": "Done"
     },
     "errors": {
       "required": "is required",
       "invalid": "is invalid",
-      "alreadyUsed": "is already used"
+      "alreadyUsed": "is already used",
+      "bsDate": "is invalid"
     }
   },
   "dropdown": {
@@ -37,5 +40,12 @@
     "delete": "delete",
     "reset": "reset",
     "new": "new"
+  },
+  "modal": {
+    "title": {
+      "tasks": {
+        "save": "Create or edit a task"
+      }
+    }
   }
 }

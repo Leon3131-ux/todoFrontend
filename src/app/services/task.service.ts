@@ -6,29 +6,19 @@ import {TaskAjaxResponse} from '../classes/task-ajax-response';
 
 @Injectable()
 export class TaskService {
-  private readonly getTasksUrl: string;
-  private readonly saveTasksUrl: string;
-  private readonly deleteTasksUrl: string;
+  private readonly getTasksUrl: string = 'http://localhost:8080/landingPage/getTasks';
+  private readonly saveTasksUrl: string = 'http://localhost:8080/landingPage/saveTask';
+  private readonly deleteTasksUrl: string = 'http://localhost:8080/landingPage/deleteTask';
 
   constructor(private http: HttpClient) {
-    this.getTasksUrl = 'http://localhost:8080/landingPage/getTasks';
-    this.saveTasksUrl = 'http://localhost:8080/landingPage/saveTask';
-    this.deleteTasksUrl = 'http://localhost:8080/landingPage/deleteTask';
   }
-  public find(taskFilter: any): Observable<TaskDto[]> {
-    let taskFilterString;
-    if (taskFilter === null) {
-      taskFilterString = '';
-    } else {
-      taskFilterString = taskFilter.toString();
-    }
-    const params = new HttpParams().append('taskFilter', taskFilterString);
-    return this.http.get<TaskDto[]>(this.getTasksUrl, {params});
+  public findAll(): Observable<TaskDto[]> {
+    return this.http.get<TaskDto[]>(this.getTasksUrl);
   }
-  public saveTask(taskDto: TaskDto): Observable<TaskAjaxResponse> {
-    return this.http.post<TaskAjaxResponse>(this.saveTasksUrl, taskDto);
+  public saveTask(taskDto: TaskDto): Observable<TaskDto> {
+    return this.http.post<TaskDto>(this.saveTasksUrl, taskDto);
   }
-  public deleteTask(taskId: number): Observable<any> {
+  public deleteTask(taskId: number): Observable<boolean> {
     const taskIdString = taskId.toString();
     const params = new HttpParams().append('taskId', taskIdString);
     return this.http.delete<boolean>(this.deleteTasksUrl, {params});

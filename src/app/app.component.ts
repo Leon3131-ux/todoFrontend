@@ -10,46 +10,42 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   constructor(private taskService: TaskService, private translate: TranslateService) { }
-  title = 'angProject';
-  currentEntry: TaskDto = null;
-  currentEntryId: number = null;
+  currentEntry: TaskDto;
   tasks: TaskDto[];
   @Input() savedTask: TaskDto;
   taskFilter: any;
 
   ngOnInit(): void {
-    const taskFilter = JSON.parse(localStorage.getItem('taskFilter'));
-    this.taskService.find(taskFilter).subscribe(data => {
-      this.tasks = data;
+    this.taskService.findAll().subscribe(data => {
+      this.tasks = this.parseTasks(data);
+      this.taskFilter = JSON.parse(localStorage.getItem('taskFilter'));
+      this.translate.setDefaultLang('de');
     });
-    this.taskFilter = taskFilter;
-    this.translate.setDefaultLang(navigator.language);
   }
   onSelectedEntry(selectedEntry: TaskDto) {
     this.currentEntry = selectedEntry;
-    this.currentEntryId = selectedEntry.id;
   }
-  onSavedTask(savedTask: TaskDto) {
-    if (this.currentEntry === null) {
-      this.tasks.push(savedTask);
-    } else {
-      this.currentEntry = Object.assign(this.currentEntry, savedTask);
-    }
+  createNewTask() {
+    this.currentEntry = new TaskDto();
   }
-  onFormReset() {
-    this.resetValues();
-  }
-  onDeleteTask() {
-    const index = this.tasks.indexOf(this.currentEntry);
-    this.tasks.splice(index, 1);
-    this.resetValues();
-  }
-  resetValues() {
+  onSaveTask(task: TaskDto) {
+    this.tasks.push(task);
     this.currentEntry = null;
-    this.currentEntryId = null;
   }
-  onFetchTasks(value: any) {
+  onDeleteTask(taskToDelete: TaskDto) {
+    const index = this.tasks.indexOf(taskToDelete);
+    this.tasks.splice(index, 1);
+    this.taskService.deleteTask(taskToDelete.id).subscribe();
+  }
+  onTableUpdate(value: any) {
     localStorage.setItem('taskFilter', JSON.stringify(value));
     this.taskFilter = value;
+  }
+  parseTasks(data: any[]) {
+    const tasksToBeReturned: TaskDto[] = [];
+    data.forEach(value => {
+      tasksToBeReturned.push(new TaskDto(value));
+    });
+    return tasksToBeReturned;
   }
 }
