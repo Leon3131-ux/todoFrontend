@@ -1,14 +1,11 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
-  Output, QueryList,
+  Output,
   SimpleChanges,
-  ViewChild,
-  ViewChildren
+  ViewChild
 } from '@angular/core';
 import {TaskDto} from '../classes/task-dto';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -28,6 +25,7 @@ export class TaskSaveComponent implements OnChanges {
   @Input()currentEntry: TaskDto;
   @Input()saveTaskFormErrors: TaskError[];
   @Output()savedTask = new EventEmitter();
+  @Output()clearSelectedEntry = new EventEmitter();
   @ViewChild('saveTaskModal', {static: false}) saveTaskModal: ModalDirective;
   saveTaskForm = new FormGroup({
     id: new FormControl({value: '', disabled: true}),
@@ -52,9 +50,13 @@ export class TaskSaveComponent implements OnChanges {
         this.hideModal();
       }
     }
-    if (this.saveTaskFormErrors && changes.saveTaskFormErrors) {
-      this.saveTaskForm.markAsPristine();
-    }
+    // form has to be marked as pristine before errors are set
+    // if (this.saveTaskFormErrors && changes.saveTaskFormErrors) {
+    //   this.saveTaskForm.markAsPristine();
+    // }
+  }
+  clearSelection() {
+    this.clearSelectedEntry.emit();
   }
   resetForm() {
     this.saveTaskForm.reset({
@@ -63,6 +65,8 @@ export class TaskSaveComponent implements OnChanges {
       date: '',
       done: false
     });
+    this.saveTaskFormErrors = [];
+    this.clearSelection();
   }
   submitTask() {
     if (this.saveTaskForm.valid) {
@@ -70,6 +74,7 @@ export class TaskSaveComponent implements OnChanges {
         this.savedTask.emit(data);
       },
         (error => {
+          this.saveTaskForm.markAsPristine();
           this.saveTaskFormErrors = error.error;
         }));
     }

@@ -4,7 +4,12 @@
     "true": "ja",
     "false": "nein",
     "actions": "Aktionen",
-    "delete": "löschen"
+    "delete": "löschen",
+    "restore": "wiederherstellen",
+    "messages": {
+      "error": "Ein Fehler ist aufgetreten!",
+      "success": "Aktion war erfolgreich!"
+    }
   },
   "fields": {
     "general": {
@@ -25,13 +30,19 @@
       "tasks": {
         "all": "alle Aufgaben",
         "finished": "erledigte Aufgaben",
-        "unfinished": "zu erledigende Aufgaben"
+        "unfinished": "zu erledigende Aufgaben",
+        "deleted": "gelöschte Aufgaben"
+      },
+      "language": {
+        "de": "Deutsch",
+        "en": "English"
       }
     },
     "title": {
       "tasks": {
         "type": "Aufgabentyp auswählen"
-      }
+      },
+      "language": "Sprache"
     }
   },
   "buttons": {

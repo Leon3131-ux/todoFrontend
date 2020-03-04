@@ -4,12 +4,18 @@
                 (updateTable)="onTableUpdate($event)"
                 [taskFilter]="taskFilter"
                 (deleteEntry)="onDeleteTask($event)"
+                (restoreEntry)="onRestoreEntry($event)"
 >
 </app-task-table>
 
-<button type="button" class="btn btn-info mr-3" (click)="createNewTask()">{{ 'buttons.new' | translate | titlecase }} {{ 'general.task' | translate | titlecase }}</button>
+<button type="button" class="btn btn-info mr-3" *ngIf="taskFilter !== 3" (click)="createNewTask()">{{ 'buttons.new' | translate }} {{ 'general.task' | translate }}</button>
 
 <app-task-save [currentEntry]="currentEntry"
                (savedTask)="onSaveTask($event)"
+               (clearSelectedEntry)="onClearSelectedEntry()"
 >
 </app-task-save>
+
+<app-toast></app-toast>
+
+<app-language-selector class="m-3"></app-language-selector>

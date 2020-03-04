@@ -1,0 +1,16 @@
+<div class="notification-container m-3" id="notification-container">
+  <aside *ngFor="let message of messages | async ">
+    <div class="notification p-2 mb-2" (click)="deleteMessage(message)"
+         [ngClass]="{
+         'info': message.type === 'info',
+         'success': message.type === 'success',
+         'warning': message.type === 'warning',
+         'danger': message.type === 'danger'}">
+      <i class="fa fa-2x fa-info mr-2" *ngIf="message.type === 'info'"></i>
+      <i class="fa fa-2x fa-check mr-2" *ngIf="message.type === 'success'"></i>
+      <i class="fa fa-2x fa-exclamation-triangle mr-2" *ngIf="message.type === 'warning'"></i>
+      <i class="fa fa-2x fa-exclamation-circle mr-2" *ngIf="message.type === 'danger'"></i>
+      <p class="m-0">{{message.message | translate}}</p>
+    </div>
+  </aside>
+</div>

@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TaskDto} from './classes/task-dto';
 import {TaskService} from './services/task.service';
 import {TranslateService} from '@ngx-translate/core';
+import {ToastService} from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private taskService: TaskService, private translate: TranslateService) { }
+  constructor(private taskService: TaskService, private translate: TranslateService, private toastService: ToastService) { }
   currentEntry: TaskDto;
   tasks: TaskDto[];
   @Input() savedTask: TaskDto;
@@ -19,7 +20,8 @@ export class AppComponent implements OnInit {
     this.taskService.findAll().subscribe(data => {
       this.tasks = this.parseTasks(data);
       this.taskFilter = JSON.parse(localStorage.getItem('taskFilter'));
-      this.translate.setDefaultLang('de');
+      this.translate.setDefaultLang('en');
+      this.translate.use(this.translate.getBrowserLang());
     });
   }
   onSelectedEntry(selectedEntry: TaskDto) {
@@ -29,13 +31,38 @@ export class AppComponent implements OnInit {
     this.currentEntry = new TaskDto();
   }
   onSaveTask(task: TaskDto) {
-    this.tasks.push(task);
+    if (this.currentEntry.id === task.id) {
+      this.currentEntry = Object.assign(this.currentEntry, task);
+    } else {
+      this.tasks.push(task);
+    }
     this.currentEntry = null;
   }
-  onDeleteTask(taskToDelete: TaskDto) {
-    const index = this.tasks.indexOf(taskToDelete);
-    this.tasks.splice(index, 1);
-    this.taskService.deleteTask(taskToDelete.id).subscribe();
+  onDeleteTask(taskDto: TaskDto) {
+    this.taskService.deleteTask(taskDto.id).subscribe(data => {
+      if (!data) {
+        const index = this.tasks.indexOf(taskDto);
+        this.tasks.splice(index, 1);
+      } else {
+        taskDto = Object.assign(taskDto, data);
+      }
+      this.toastService.addMessage('general.messages.success', 'success');
+    },
+      (error => {
+        this.toastService.addMessage(error.error, 'danger');
+    }));
+  }
+  onClearSelectedEntry() {
+    this.currentEntry = null;
+  }
+  onRestoreEntry(taskDto: TaskDto) {
+    taskDto.deleted = false;
+    this.taskService.saveTask(taskDto).subscribe(data => {
+        this.toastService.addMessage('general.messages.success', 'success');
+    },
+      (error => {
+        this.toastService.addMessage(error.error, 'danger');
+      }));
   }
   onTableUpdate(value: any) {
     localStorage.setItem('taskFilter', JSON.stringify(value));

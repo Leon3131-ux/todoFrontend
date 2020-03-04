@@ -15,13 +15,16 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import {ToastModule} from './toast/toast.module';
+import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MultiResultComponent,
     TaskTableComponent,
-    TaskSaveComponent
+    TaskSaveComponent,
+    LanguageSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
         deps: [HttpClient]
       }
     }),
-    BsDatepickerModule
+    BsDatepickerModule,
+    ToastModule
   ],
   providers: [
     TaskService

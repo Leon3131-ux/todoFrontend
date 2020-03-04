@@ -1,11 +1,12 @@
 <div class="btn-group mb-2" dropdown>
-  <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-light dropdown-toggle" aria-controls="dropdown-basic">{{ 'dropdown.title.tasks.type' | translate | titlecase}}<span class="caret"></span>
+  <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-light dropdown-toggle" aria-controls="dropdown-basic">{{ 'dropdown.title.tasks.type' | translate }}<span class="caret"></span>
   </button>
   <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
       role="menu" aria-labelledby="button-basic">
-    <li role="menuitem"><button class="dropdown-item text-white" (click)="updateTable.emit(null)">{{ 'dropdown.selection.tasks.all' | translate | titlecase}} <i *ngIf="taskFilter === null" class="fa fa-check"></i></button></li>
-    <li role="menuitem"><button class="dropdown-item text-white" (click)="updateTable.emit(true)">{{ 'dropdown.selection.tasks.finished' | translate | titlecase}} <i *ngIf="taskFilter === true" class="fa fa-check"></i></button></li>
-    <li role="menuitem"><button class="dropdown-item text-white" (click)="updateTable.emit(false)">{{ 'dropdown.selection.tasks.unfinished' | translate | titlecase}} <i *ngIf="taskFilter === false" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item text-white" (click)="updateTable.emit(0)">{{ 'dropdown.selection.tasks.all' | translate }} <i *ngIf="taskFilter === TaskFilters.ALL" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item text-white" (click)="updateTable.emit(1)">{{ 'dropdown.selection.tasks.finished' | translate }} <i *ngIf="taskFilter === TaskFilters.FINISHED" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item text-white" (click)="updateTable.emit(2)">{{ 'dropdown.selection.tasks.unfinished' | translate }} <i *ngIf="taskFilter === TaskFilters.UNFINISHED" class="fa fa-check"></i></button></li>
+    <li role="menuitem"><button class="dropdown-item text-white" (click)="updateTable.emit(3)">{{ 'dropdown.selection.tasks.deleted' | translate }} <i *ngIf="taskFilter === TaskFilters.DELETED" class="fa fa-check"></i></button></li>
   </ul>
 </div>
 
@@ -14,24 +15,28 @@
   <thead>
     <tr>
       <td>ID</td>
-      <td>{{ 'fields.general.title' | translate | titlecase}}</td>
-      <td>{{ 'fields.general.description' | translate | titlecase}}</td>
-      <td>{{ 'fields.general.done' | translate | titlecase}}</td>
-      <td>{{ 'fields.general.date' | translate | titlecase}}</td>
-      <td>{{ 'general.actions' | translate | titlecase}}</td>
+      <td>{{ 'fields.general.title' | translate }}</td>
+      <td>{{ 'fields.general.description' | translate }}</td>
+      <td>{{ 'fields.general.done' | translate }}</td>
+      <td>{{ 'fields.general.date' | translate }}</td>
+      <td>{{ 'general.actions' | translate }}</td>
     </tr>
   </thead>
   <tbody>
   <ng-container *ngFor="let taskDto of tasks" >
-    <tr *ngIf="taskDto.done === taskFilter || taskFilter === null" [ngClass]="{
+    <tr *ngIf="isDisplayTask(taskDto)" [ngClass]="{
     'bg-info' : (currentEntry && currentEntry.id === taskDto.id)
-    }" (click)="selectedEntry.emit(taskDto)">
-      <td>{{ taskDto.id }}</td>
-      <td>{{ taskDto.title }}</td>
-      <td>{{ taskDto.description }}</td>
-      <td>{{ 'general.' + taskDto.done.toString() | translate }}</td>
-      <td>{{ taskDto.date | date:'dd-MM-yyyy' }}</td>
-      <td><button class="btn btn-danger" (click)="deleteEntry.emit(taskDto)">{{ 'general.delete' | translate | titlecase}}</button></td>
+    }">
+      <!--  click on tr only works when task filter is not deleted    -->
+      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.id }}</td>
+      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.title }}</td>
+      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.description }}</td>
+      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ 'general.' + taskDto.done.toString() | translate }}</td>
+      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.date | date:'dd-MM-yyyy' }}</td>
+      <td>
+        <button class="btn btn-danger mr-3" (click)="deleteEntry.emit(taskDto)">{{ 'general.delete' | translate }}</button>
+        <button class="btn btn-primary" *ngIf="taskDto.deleted === true" (click)="restoreEntry.emit(taskDto)">{{ 'general.restore' | translate }}</button>
+      </td>
     </tr>
   </ng-container>
   </tbody>

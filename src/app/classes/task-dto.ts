@@ -5,6 +5,7 @@ export class TaskDto {
   done = false;
   date: Date = new Date();
   expired = false;
+  deleted = false;
   constructor(object?: any) {
     if (!object) { return; }
     this.id =  object.id;
@@ -13,5 +14,6 @@ export class TaskDto {
     this.done = object.done;
     this.date = new Date(object.date);
     this.expired = object.expired;
+    this.deleted = object.deleted;
   }
 }

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { TaskDto } from '../classes/task-dto';
 import { Observable } from 'rxjs';
-import {TaskAjaxResponse} from '../classes/task-ajax-response';
 
 @Injectable()
 export class TaskService {
@@ -18,10 +17,10 @@ export class TaskService {
   public saveTask(taskDto: TaskDto): Observable<TaskDto> {
     return this.http.post<TaskDto>(this.saveTasksUrl, taskDto);
   }
-  public deleteTask(taskId: number): Observable<boolean> {
+  public deleteTask(taskId: number): Observable<TaskDto> {
     const taskIdString = taskId.toString();
     const params = new HttpParams().append('taskId', taskIdString);
-    return this.http.delete<boolean>(this.deleteTasksUrl, {params});
+    return this.http.delete<TaskDto>(this.deleteTasksUrl, {params});
   }
 
 }

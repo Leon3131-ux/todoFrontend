@@ -4,7 +4,12 @@
     "true": "true",
     "false": "false",
     "actions": "actions",
-    "delete": "delete"
+    "delete": "delete",
+    "restore": "restore",
+    "messages": {
+      "error": "An error occurred!",
+      "success": "Operation successful!"
+    }
   },
   "fields": {
     "general": {
@@ -24,14 +29,20 @@
     "selection": {
       "tasks": {
         "all": "all tasks",
-        "finished": "finished tasks",
-        "unfinished": "unfinished tasks"
+        "finished": "finished Tasks",
+        "unfinished": "unfinished Tasks",
+        "deleted": "deleted Tasks"
+      },
+      "language": {
+        "de": "Deutsch",
+        "en": "English"
       }
     },
     "title": {
       "tasks": {
-        "type": "select task type"
-      }
+        "type": "select Task type"
+      },
+      "language": "language"
     }
   },
   "buttons": {
@@ -44,7 +55,7 @@
   "modal": {
     "title": {
       "tasks": {
-        "save": "Create or edit a task"
+        "save": "Create or edit a TSSask"
       }
     }
   }
