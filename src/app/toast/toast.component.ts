@@ -18,5 +18,10 @@ export class ToastComponent implements OnInit {
   deleteMessage(toastMessage: ToastMessage) {
     this.toastService.deleteMessage(toastMessage);
   }
-
+  stopTimer(toastMessage: ToastMessage) {
+    this.toastService.stopTimeout(toastMessage);
+  }
+  startTimer(toastMessage: ToastMessage) {
+    this.toastService.startTimeout(toastMessage);
+  }
 }
