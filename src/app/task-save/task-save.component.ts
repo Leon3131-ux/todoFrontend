@@ -1,8 +1,8 @@
 import {
   Component,
-  EventEmitter,
+  EventEmitter, HostListener,
   Input,
-  OnChanges,
+  OnChanges, OnInit,
   Output,
   SimpleChanges,
   ViewChild
@@ -18,7 +18,7 @@ import {TaskService} from '../services/task.service';
   templateUrl: './task-save.component.html',
   styleUrls: ['./task-save.component.scss']
 })
-export class TaskSaveComponent implements OnChanges {
+export class TaskSaveComponent implements OnChanges, OnInit {
   constructor(private taskService: TaskService) {
   }
 
@@ -26,6 +26,7 @@ export class TaskSaveComponent implements OnChanges {
   @Input()saveTaskFormErrors: TaskError[];
   @Output()savedTask = new EventEmitter();
   @Output()clearSelectedEntry = new EventEmitter();
+  @Output()deleteTask = new EventEmitter();
   @ViewChild('saveTaskModal', {static: false}) saveTaskModal: ModalDirective;
   saveTaskForm = new FormGroup({
     id: new FormControl({value: '', disabled: true}),
@@ -40,6 +41,7 @@ export class TaskSaveComponent implements OnChanges {
     ]),
     done: new FormControl(false)
   });
+  innerWidth: number;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.currentEntry.isFirstChange()) {
@@ -50,13 +52,20 @@ export class TaskSaveComponent implements OnChanges {
         this.hideModal();
       }
     }
-    // form has to be marked as pristine before errors are set
-    // if (this.saveTaskFormErrors && changes.saveTaskFormErrors) {
-    //   this.saveTaskForm.markAsPristine();
-    // }
+  }
+  ngOnInit(): void {
+    this.innerWidth = window.screen.width;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
   }
   clearSelection() {
     this.clearSelectedEntry.emit();
+  }
+  deleteEntry() {
+    this.deleteTask.emit(this.currentEntry);
   }
   resetForm() {
     this.saveTaskForm.reset({
@@ -71,7 +80,8 @@ export class TaskSaveComponent implements OnChanges {
   submitTask() {
     if (this.saveTaskForm.valid) {
       this.taskService.saveTask(this.saveTaskForm.getRawValue()).subscribe(data => {
-        this.savedTask.emit(data);
+        const taskDtoToEmit = new TaskDto(data);
+        this.savedTask.emit(taskDtoToEmit);
       },
         (error => {
           this.saveTaskForm.markAsPristine();

@@ -14,8 +14,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { BsDatepickerModule } from 'ngx-bootstrap';
-import {ToastModule} from './toast/toast.module';
+import {BsDatepickerModule, PopoverConfig, PopoverModule, TooltipConfig, TooltipModule} from 'ngx-bootstrap';
+import { ToastModule } from './toast/toast.module';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 
 @NgModule({
@@ -45,10 +45,14 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
       }
     }),
     BsDatepickerModule,
-    ToastModule
+    ToastModule,
+    TooltipModule,
+    PopoverModule,
   ],
   providers: [
-    TaskService
+    TaskService,
+    TooltipConfig,
+    PopoverConfig
   ],
   bootstrap: [AppComponent]
 })

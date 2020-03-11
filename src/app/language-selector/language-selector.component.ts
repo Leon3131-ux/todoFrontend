@@ -17,6 +17,7 @@ export class LanguageSelectorComponent implements OnInit {
 
   updateLang(lang: string) {
     this.translateService.use(lang);
+    localStorage.setItem('lang', lang);
   }
 
 }

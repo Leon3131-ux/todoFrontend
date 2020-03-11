@@ -10,34 +10,59 @@
   </ul>
 </div>
 
-
-<table class="table table-dark table-bordered table-hover" style="table-layout: fixed">
+<table *ngIf="innerWidth > 575 " class="table table-dark table-bordered table-hover" style="table-layout: fixed">
   <thead>
     <tr>
-      <td>ID</td>
       <td>{{ 'fields.general.title' | translate }}</td>
       <td>{{ 'fields.general.description' | translate }}</td>
       <td>{{ 'fields.general.done' | translate }}</td>
-      <td>{{ 'fields.general.date' | translate }}</td>
-      <td>{{ 'general.actions' | translate }}</td>
+      <td class="d-none d-md-table-cell">{{ 'fields.general.date' | translate }}</td>
+      <td class="d-none d-lg-table-cell">{{ 'general.actions' | translate }}</td>
     </tr>
   </thead>
   <tbody>
   <ng-container *ngFor="let taskDto of tasks" >
-    <tr *ngIf="isDisplayTask(taskDto)" [ngClass]="{
-    'bg-info' : (currentEntry && currentEntry.id === taskDto.id)
+<!--    popover only shows if taskFilter is deleted-->
+    <tr *ngIf="isDisplayTask(taskDto)" [popover]="(taskFilter !== TaskFilters.DELETED || innerWidth > 991) ? null : deleteTemplate" triggers="click" tabindex="1" [ngClass]="{
+    'bg-info' : (currentEntry && currentEntry.id === taskDto.id),
+    'tr-danger' : (taskDto.expired === true && taskDto.done === false),
+    'tr-success': taskDto.done === true
     }">
-      <!--  click on tr only works when task filter is not deleted    -->
-      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.id }}</td>
-      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.title }}</td>
-      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.description }}</td>
-      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ 'general.' + taskDto.done.toString() | translate }}</td>
-      <td (click)="taskFilter === TaskFilters.DELETED || selectedEntry.emit(taskDto)">{{ taskDto.date | date:'dd-MM-yyyy' }}</td>
-      <td>
-        <button class="btn btn-danger mr-3" (click)="deleteEntry.emit(taskDto)">{{ 'general.delete' | translate }}</button>
-        <button class="btn btn-primary" *ngIf="taskDto.deleted === true" (click)="restoreEntry.emit(taskDto)">{{ 'general.restore' | translate }}</button>
+      <ng-template #deleteTemplate>
+        <div>
+          <button class="btn btn-danger mb-2 col" (click)="deleteEntry.emit(taskDto)">{{ 'general.delete' | translate }}</button>
+          <button class="btn btn-primary col" *ngIf="taskDto.deleted === true" (click)="restoreEntry.emit(taskDto)">{{ 'general.restore' | translate }}</button>
+        </div>
+      </ng-template>
+<!--      click on tr only works when task filter is not deleted    -->
+      <td (click)="taskFilter !== TaskFilters.DELETED && selectedEntry.emit(taskDto)">{{ taskDto.title }}</td>
+      <td (click)="taskFilter !== TaskFilters.DELETED && selectedEntry.emit(taskDto)">{{ taskDto.description }}</td>
+      <td (click)="taskFilter !== TaskFilters.DELETED && selectedEntry.emit(taskDto)">{{ 'general.' + taskDto.done.toString() | translate }}</td>
+      <td class="d-none d-md-table-cell" (click)="taskFilter !== TaskFilters.DELETED && selectedEntry.emit(taskDto)">{{ taskDto.date | date:'dd-MM-yyyy' }}</td>
+      <td class="d-none d-lg-table-cell">
+        <button class="btn btn-danger mb-2 col" (click)="deleteEntry.emit(taskDto)">{{ 'general.delete' | translate }}</button>
+        <button class="btn btn-primary col" *ngIf="taskDto.deleted === true" (click)="restoreEntry.emit(taskDto)">{{ 'general.restore' | translate }}</button>
       </td>
     </tr>
   </ng-container>
   </tbody>
 </table>
+<div *ngIf="innerWidth < 576">
+  <div *ngFor="let taskDto of tasks">
+    <div *ngIf="isDisplayTask(taskDto)" class="card mb-3">
+      <div class="card-header">
+        <h5 class="card-title">{{ taskDto.title }}</h5>
+      </div>
+      <div class="card-body" [ngClass]="{
+      'card-danger' : (taskDto.expired === true && taskDto.done === false),
+      'card-success': taskDto.done === true
+      }">
+        <p class="card-text">{{ taskDto.description }}</p>
+        <p class="card-text">{{ taskDto.date | date:'dd-MM-yyyy' }}</p>
+        <button *ngIf="taskFilter !== TaskFilters.DELETED" (click)="taskFilter !== TaskFilters.DELETED && selectedEntry.emit(taskDto)" class="btn btn-primary mr-3">{{ 'buttons.edit' | translate }}</button>
+        <button (click)="taskFilter !== TaskFilters.DELETED && deleteEntry.emit(taskDto)" class="btn btn-danger mr-3">{{ 'buttons.delete' | translate }}</button>
+        <button class="btn btn-primary" *ngIf="taskFilter === TaskFilters.DELETED" (click)="restoreEntry.emit(taskDto)">{{ 'general.restore' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

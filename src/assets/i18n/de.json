@@ -50,7 +50,8 @@
     "edit": "bearbeiten",
     "delete": "löschen",
     "reset": "zurücksetzten",
-    "new": "neu"
+    "new": "neu",
+    "details": "Info"
   },
   "modal": {
     "title": {

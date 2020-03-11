@@ -50,12 +50,13 @@
     "edit": "edit",
     "delete": "delete",
     "reset": "reset",
-    "new": "new"
+    "new": "new",
+    "details": "details"
   },
   "modal": {
     "title": {
       "tasks": {
-        "save": "Create or edit a TSSask"
+        "save": "Create or edit a Task"
       }
     }
   }

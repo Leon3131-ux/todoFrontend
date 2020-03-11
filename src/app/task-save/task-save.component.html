@@ -31,8 +31,9 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-info ml-3" (click)="submitTask()">{{ 'buttons.submit' | translate  }}</button>
-        <button class="btn btn-danger ml-3" (click)="resetFormToLastState()">{{ 'buttons.reset' | translate  }}</button>
+        <button class="btn btn-info ml-3 col" (click)="submitTask()">{{ 'buttons.submit' | translate  }}</button>
+        <button class="btn btn-danger ml-3 col" (click)="resetFormToLastState()">{{ 'buttons.reset' | translate  }}</button>
+        <button class="btn btn-danger ml-3 col" *ngIf="currentEntry && currentEntry.id !== null && innerWidth < 992 && innerWidth > 575" (click)="deleteEntry()">{{ 'buttons.delete' | translate  }}</button>
       </div>
     </div>
   </div>

@@ -21,7 +21,11 @@ export class AppComponent implements OnInit {
       this.tasks = this.parseTasks(data);
       this.taskFilter = JSON.parse(localStorage.getItem('taskFilter'));
       this.translate.setDefaultLang('en');
-      this.translate.use(this.translate.getBrowserLang());
+      if (localStorage.getItem('lang')) {
+        this.translate.use(localStorage.getItem('lang'));
+      } else {
+        this.translate.use(this.translate.getBrowserLang());
+      }
     });
   }
   onSelectedEntry(selectedEntry: TaskDto) {
@@ -44,6 +48,9 @@ export class AppComponent implements OnInit {
         const index = this.tasks.indexOf(taskDto);
         this.tasks.splice(index, 1);
       } else {
+        if (taskDto === this.currentEntry) {
+          this.currentEntry = null;
+        }
         taskDto = Object.assign(taskDto, data);
       }
       this.toastService.addMessage('general.messages.success', 'success');
@@ -57,7 +64,7 @@ export class AppComponent implements OnInit {
   }
   onRestoreEntry(taskDto: TaskDto) {
     taskDto.deleted = false;
-    this.taskService.saveTask(taskDto).subscribe(data => {
+    this.taskService.saveTask(taskDto).subscribe(() => {
         this.toastService.addMessage('general.messages.success', 'success');
     },
       (error => {

@@ -1,5 +1,5 @@
 <div class="notification-container m-3" id="notification-container">
-  <aside *ngFor="let message of messages | async ">
+  <aside @fadeInOut *ngFor="let message of messages | async ">
     <div class="notification p-2 mb-2"
          (click)="deleteMessage(message)"
          (mouseenter)="stopTimer(message)"

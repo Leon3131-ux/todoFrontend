@@ -8,14 +8,16 @@
 >
 </app-task-table>
 
-<button type="button" class="btn btn-info mr-3" *ngIf="taskFilter !== 3" (click)="createNewTask()">{{ 'buttons.new' | translate }} {{ 'general.task' | translate }}</button>
+<app-language-selector class="m-3"></app-language-selector>
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+  <button type="button" class="btn btn-info mr-3" *ngIf="taskFilter !== 3" (click)="createNewTask()">{{ 'buttons.new' | translate }} {{ 'general.task' | translate }}</button>
+</nav>
 
 <app-task-save [currentEntry]="currentEntry"
                (savedTask)="onSaveTask($event)"
                (clearSelectedEntry)="onClearSelectedEntry()"
+               (deleteTask)="onDeleteTask($event)"
 >
 </app-task-save>
 
 <app-toast></app-toast>
-
-<app-language-selector class="m-3"></app-language-selector>
