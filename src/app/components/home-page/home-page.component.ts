@@ -3,6 +3,8 @@ import {TaskService} from "../../services/task.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ToastService} from "../../services/toast.service";
 import {TaskDto} from "../../classes/task-dto";
+import {AuthenticationService} from "../../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -11,7 +13,13 @@ import {TaskDto} from "../../classes/task-dto";
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private taskService: TaskService, private translate: TranslateService, private toastService: ToastService) { }
+  constructor(
+    private taskService: TaskService,
+    private translate: TranslateService,
+    private toastService: ToastService,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) { }
   currentEntry: TaskDto;
   tasks: TaskDto[];
   @Input() savedTask: TaskDto;
@@ -76,6 +84,10 @@ export class HomePageComponent implements OnInit {
       tasksToBeReturned.push(new TaskDto(value));
     });
     return tasksToBeReturned;
+  }
+  logout(){
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

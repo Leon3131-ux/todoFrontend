@@ -10,7 +10,8 @@
 
 <app-language-selector class="m-3"></app-language-selector>
 <nav class="navbar fixed-bottom navbar-dark bg-dark">
-  <button type="button" class="btn btn-info mr-3" *ngIf="taskFilter !== 3" (click)="createNewTask()">{{ 'buttons.new' | translate }} {{ 'general.task' | translate }}</button>
+  <button type="button" class="btn btn-info" *ngIf="taskFilter !== 3" (click)="createNewTask()">{{ 'buttons.new' | translate }} {{ 'general.task' | translate }}</button>
+  <button type="button" class="btn btn-info" (click)="logout()">{{ 'buttons.logout' | translate }}</button>
 </nav>
 
 <app-task-save [currentEntry]="currentEntry"

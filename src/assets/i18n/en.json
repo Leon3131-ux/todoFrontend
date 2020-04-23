@@ -69,7 +69,8 @@
     "delete": "delete",
     "reset": "reset",
     "new": "new",
-    "details": "details"
+    "details": "details",
+    "logout": "logout"
   },
   "modal": {
     "title": {
