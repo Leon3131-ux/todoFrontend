@@ -1,4 +1,4 @@
-<div bsModal #saveTaskModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name" (onHidden)="resetForm(); clearSelection()">
+<div bsModal #saveTaskModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name" (onHidden)="resetForm()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,18 +11,18 @@
         <form [formGroup]="saveTaskForm">
           <div class="form-group">
             <label for="titleField" class="w-100 text-white">{{ 'fields.general.title' | translate }}</label>
-            <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : hasError('title')}" id="titleField" placeholder="{{ 'fields.general.title' |translate  }}" formControlName="title">
-            <p *ngFor="let errorMsg of getErrors('title')" class="invalid-feedback">{{ 'fields.general.title' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
+            <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : hasError('title')}" id="titleField" placeholder="{{ 'fields.general.title' | translate  }}" formControlName="title">
+            <p *ngFor="let errorMsg of getErrors('title')" class="invalid-feedback">{{ errorMsg | translate }}</p>
           </div>
           <div class="form-group">
             <label for="descriptionField" class="w-100 text-white">{{ 'fields.general.description' | translate }}</label>
             <textarea class="form-control" [ngClass]="{ 'is-invalid' : hasError('description')}" id="descriptionField" placeholder="{{ 'fields.general.description' | translate  }}" formControlName="description"></textarea>
-            <p *ngFor="let errorMsg of getErrors('description')" class="invalid-feedback">{{ 'fields.general.description' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
+            <p *ngFor="let errorMsg of getErrors('description')" class="invalid-feedback">{{ errorMsg | translate }}</p>
           </div>
           <div class="form-group">
             <label for="dateField" class="w-100 text-white">{{ 'fields.general.date' | translate }}</label>
             <input [ngClass]="{ 'is-invalid' : hasError('date')}" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" class="form-control" type="text" id="dateField" placeholder="{{ 'fields.general.date' | translate  }}" formControlName="date">
-            <p *ngFor="let errorMsg of getErrors('date')" class="invalid-feedback">{{ 'fields.general.date' | translate }} {{ 'fields.errors.' + errorMsg | translate }}</p>
+            <p *ngFor="let errorMsg of getErrors('date')" class="invalid-feedback">{{ errorMsg | translate }}</p>
           </div>
           <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="doneCheckBox" formControlName="done">

@@ -7,11 +7,11 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {TaskDto} from '../classes/task-dto';
+import {TaskDto} from '../../classes/task-dto';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ModalDirective} from 'ngx-bootstrap';
-import {TaskError} from '../classes/task-error';
-import {TaskService} from '../services/task.service';
+import {TaskError} from '../../classes/task-error';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-task-save',
@@ -23,7 +23,7 @@ export class TaskSaveComponent implements OnChanges, OnInit {
   }
 
   @Input()currentEntry: TaskDto;
-  @Input()saveTaskFormErrors: TaskError[];
+  saveTaskFormErrors: TaskError[] = [];
   @Output()savedTask = new EventEmitter();
   @Output()clearSelectedEntry = new EventEmitter();
   @Output()deleteTask = new EventEmitter();
@@ -85,8 +85,12 @@ export class TaskSaveComponent implements OnChanges, OnInit {
       },
         (error => {
           this.saveTaskForm.markAsPristine();
-          this.saveTaskFormErrors = error.error;
+          error.error.validationErrors.forEach(validationError => {
+            this.saveTaskFormErrors.push(new TaskError(validationError));
+          })
         }));
+    }else {
+      this.saveTaskForm.markAllAsTouched();
     }
   }
   resetFormToLastState() {
@@ -107,7 +111,8 @@ export class TaskSaveComponent implements OnChanges, OnInit {
     }
     if (this.saveTaskFormErrors) {
       for (const taskError of this.saveTaskFormErrors) {
-        if (taskError.field === field && formField.pristine) {
+        console.log(taskError.getField());
+        if (taskError.getField() === field && formField.pristine) {
           return true;
         }
       }
@@ -120,13 +125,13 @@ export class TaskSaveComponent implements OnChanges, OnInit {
     if (formField.errors) {
       for (const errorsKey in formField.errors) {
         if (formField.invalid) {
-          errorMessages.push(errorsKey);
+          errorMessages.push('errors.task.' + field + '.' + errorsKey);
         }
       }
     }
     if (this.saveTaskFormErrors) {
       for (const taskError of this.saveTaskFormErrors) {
-        if (taskError.field === field && formField.pristine) {
+        if (taskError.getField() === field && formField.pristine && errorMessages.indexOf(taskError.message) == -1) {
           errorMessages.push(taskError.message);
         }
       }

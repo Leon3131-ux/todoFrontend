@@ -11,6 +11,24 @@
       "success": "Operation successful!"
     }
   },
+  "errors": {
+    "task": {
+      "title": {
+        "required": "Title is required",
+        "alreadyUsed": "Title is already in use",
+        "inDeleted": "Title is already in use in deleted tasks"
+      },
+      "description": {
+        "required": "Description is required"
+      },
+      "date": {
+        "invalid": "Invalid Date"
+      }
+    },
+    "general": {
+      "badRequest": "An error has occurred"
+    }
+  },
   "fields": {
     "general": {
       "title": "Title",

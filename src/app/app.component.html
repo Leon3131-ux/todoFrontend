@@ -1,23 +1,2 @@
-<app-task-table [tasks]="tasks"
-                (selectedEntry)="onSelectedEntry($event)"
-                [currentEntry]="currentEntry"
-                (updateTable)="onTableUpdate($event)"
-                [taskFilter]="taskFilter"
-                (deleteEntry)="onDeleteTask($event)"
-                (restoreEntry)="onRestoreEntry($event)"
->
-</app-task-table>
-
-<app-language-selector class="m-3"></app-language-selector>
-<nav class="navbar fixed-bottom navbar-dark bg-dark">
-  <button type="button" class="btn btn-info mr-3" *ngIf="taskFilter !== 3" (click)="createNewTask()">{{ 'buttons.new' | translate }} {{ 'general.task' | translate }}</button>
-</nav>
-
-<app-task-save [currentEntry]="currentEntry"
-               (savedTask)="onSaveTask($event)"
-               (clearSelectedEntry)="onClearSelectedEntry()"
-               (deleteTask)="onDeleteTask($event)"
->
-</app-task-save>
-
+<router-outlet></router-outlet>
 <app-toast></app-toast>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ToastService} from '../services/toast.service';
-import {ToastMessage} from '../classes/toast-message';
+import {ToastService} from '../../services/toast.service';
+import {ToastMessage} from '../../classes/toast-message';
 import {Observable} from 'rxjs';
 import {animate, style, transition, trigger} from '@angular/animations';
 

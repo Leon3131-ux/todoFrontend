@@ -11,6 +11,24 @@
       "success": "Aktion war erfolgreich!"
     }
   },
+  "errors": {
+    "task": {
+      "title": {
+        "required": "Titel wird benötigt",
+        "alreadyUsed": "Titel wird schon benutzt",
+        "inDeleted": "Titel wird schon in gelöschter Aufgabe verwendet"
+      },
+      "description": {
+        "required": "Beschreibung wird benötigt"
+      },
+      "date": {
+        "invalid": "Ungüliges Datum"
+      }
+    },
+    "general": {
+      "badRequest": "Es ist ein Fehler aufgetreten"
+    }
+  },
   "fields": {
     "general": {
       "title": "Titel",

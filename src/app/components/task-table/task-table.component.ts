@@ -1,6 +1,6 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
-import { TaskDto } from '../classes/task-dto';
-import {TaskFilters} from '../enums/task-filters.enum';
+import { TaskDto } from '../../classes/task-dto';
+import {TaskFilters} from '../../enums/task-filters.enum';
 
 @Component({
   selector: 'app-task-table',

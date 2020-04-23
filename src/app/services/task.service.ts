@@ -1,26 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
 import { TaskDto } from '../classes/task-dto';
 import { Observable } from 'rxjs';
+import {ApiService} from "./api-service.service";
+import {TaskSaveErrorHandler} from "../errorHandlers/task-save-error-handler";
 
 @Injectable()
 export class TaskService {
-  private readonly getTasksUrl: string = 'http://localhost:8080/landingPage/getTasks';
-  private readonly saveTasksUrl: string = 'http://localhost:8080/landingPage/saveTask';
-  private readonly deleteTasksUrl: string = 'http://localhost:8080/landingPage/deleteTask';
 
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ApiService, private taskSaveErrorHandler: TaskSaveErrorHandler) {
   }
   public findAll(): Observable<TaskDto[]> {
-    return this.http.get<TaskDto[]>(this.getTasksUrl);
+    return this.apiService.getAll('/getTasks');
   }
   public saveTask(taskDto: TaskDto): Observable<TaskDto> {
-    return this.http.post<TaskDto>(this.saveTasksUrl, taskDto);
+    return this.apiService.postSingle('/saveTask', taskDto, this.taskSaveErrorHandler);
   }
   public deleteTask(taskId: number): Observable<TaskDto> {
     const taskIdString = taskId.toString();
-    const params = new HttpParams().append('taskId', taskIdString);
-    return this.http.delete<TaskDto>(this.deleteTasksUrl, {params});
+    return this.apiService.deleteSingle('/deleteTask', {params: {'taskId': taskIdString}});
   }
 
 }
