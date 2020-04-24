@@ -13,7 +13,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {BsDatepickerModule, PopoverConfig, PopoverModule, TooltipConfig, TooltipModule} from 'ngx-bootstrap';
 import {ToastModule} from './components/toast/toast.module';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
 import {DefaultErrorHandler} from "./errorHandlers/default-error-handler";
@@ -26,6 +25,9 @@ import {HomePageComponent} from './components/home-page/home-page.component';
 import {RouterModule, Routes} from "@angular/router";
 import {PermissionGuard} from "./guards/permission.guard";
 import {httpInterceptProviders} from "./httpInterceptors/HttpInteceptProviders";
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {TooltipConfig, TooltipModule} from "ngx-bootstrap/tooltip";
+import {PopoverConfig, PopoverModule} from "ngx-bootstrap/popover";
 
 const appRoutes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [PermissionGuard], data: {requiredPermission: 'USER'}},

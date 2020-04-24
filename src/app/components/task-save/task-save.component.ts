@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import {TaskDto} from '../../classes/task-dto';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
 import {TaskError} from '../../classes/task-error';
 import {TaskService} from '../../services/task.service';
+import {ModalDirective} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'app-task-save',
