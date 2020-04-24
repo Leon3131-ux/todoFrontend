@@ -1,7 +1,7 @@
 <div class="btn-group mb-2" dropdown>
   <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-light dropdown-toggle" aria-controls="dropdown-basic">{{ 'dropdown.title.language' | translate }}<span class="caret"></span>
   </button>
-  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right"
       role="menu" aria-labelledby="button-basic">
     <li role="menuitem"><button class="dropdown-item text-white" (click)="updateLang('de')">{{ 'dropdown.selection.language.de' | translate }} <i *ngIf="currentLang === 'de'" class="fa fa-check"></i></button></li>
     <li role="menuitem"><button class="dropdown-item text-white" (click)="updateLang('en')">{{ 'dropdown.selection.language.en' | translate }} <i *ngIf="currentLang === 'en'" class="fa fa-check"></i></button></li>
