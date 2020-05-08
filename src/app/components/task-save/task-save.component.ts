@@ -79,6 +79,7 @@ export class TaskSaveComponent implements OnChanges, OnInit {
   }
   submitTask() {
     if (this.saveTaskForm.valid) {
+      this.saveTaskFormErrors = [];
       this.taskService.saveTask(this.saveTaskForm.getRawValue()).subscribe(data => {
         const taskDtoToEmit = new TaskDto(data);
         this.savedTask.emit(taskDtoToEmit);
