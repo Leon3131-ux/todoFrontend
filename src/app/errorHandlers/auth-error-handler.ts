@@ -13,11 +13,11 @@ export class AuthErrorHandler implements HttpResponseErrorHandler{
   }
 
   handle(error: HttpErrorResponse) {
-    if(error.error.message){
+    if(error.error){
       this.toastService.addMessage(error.error.message, 'danger', 5000);
     }else{
       this.toastService.addMessage(error.message, 'danger', 5000);
     }
-
   }
+
 }
