@@ -16,7 +16,7 @@ export class AuthErrorHandler implements HttpResponseErrorHandler{
     if(error.error){
       this.toastService.addMessage(error.error.message, 'danger', 5000);
     }else{
-      this.toastService.addMessage(error.message, 'danger', 5000);
+      this.toastService.addMessage("errors.authentication.unauthorized", 'danger', 5000);
     }
   }
 

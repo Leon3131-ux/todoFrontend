@@ -27,6 +27,14 @@
     },
     "general": {
       "badRequest": "An error has occurred"
+    },
+    "login": {
+      "credentials": {
+        "wrong": "Wrong password or username"
+      }
+    },
+    "authentication": {
+      "unauthorized": "Unauthorized action"
     }
   },
   "fields": {
