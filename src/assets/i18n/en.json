@@ -22,7 +22,8 @@
         "required": "Description is required"
       },
       "date": {
-        "invalid": "Invalid Date"
+        "invalid": "Invalid Date",
+        "bsDate": "Invalid Date"
       }
     },
     "general": {

@@ -22,7 +22,8 @@
         "required": "Beschreibung wird benötigt"
       },
       "date": {
-        "invalid": "Ungüliges Datum"
+        "invalid": "Ungüliges Datum",
+        "bsDate": "Ungüliges Datum"
       }
     },
     "general": {
