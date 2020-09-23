@@ -10,7 +10,7 @@ import { TaskService } from './services/task.service';
 import { TaskSaveComponent } from './components/task-save/task-save.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {ToastModule} from './components/toast/toast.module';
@@ -52,9 +52,10 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
     FormsModule,
     ModalModule.forRoot(),
-    AngularFontAwesomeModule,
+    FontAwesomeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
