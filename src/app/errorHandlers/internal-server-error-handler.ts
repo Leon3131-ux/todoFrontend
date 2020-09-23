@@ -1,10 +1,10 @@
-import {HttpErrorResponse} from "@angular/common/http";
-import {HttpResponseErrorHandler} from "./http-response-error-handler";
-import {Injectable} from "@angular/core";
-import {ToastService} from "../services/toast.service";
+import {HttpErrorResponse} from '@angular/common/http';
+import {HttpResponseErrorHandler} from './http-response-error-handler';
+import {Injectable} from '@angular/core';
+import {ToastService} from '../services/toast.service';
 
 @Injectable()
-export class InternalServerErrorHandler implements HttpResponseErrorHandler{
+export class InternalServerErrorHandler implements HttpResponseErrorHandler {
 
   constructor(private toastService: ToastService) {
   }

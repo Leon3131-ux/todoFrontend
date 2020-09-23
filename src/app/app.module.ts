@@ -19,7 +19,7 @@ import {DefaultErrorHandler} from './errorHandlers/default-error-handler';
 import {ValidationErrorHandler} from './errorHandlers/validation-error-handler';
 import {InternalServerErrorHandler} from './errorHandlers/internal-server-error-handler';
 import {TaskSaveErrorHandler} from './errorHandlers/task-save-error-handler';
-import {AuthErrorHandler} from './errorHandlers/auth-error-handler';
+import {AuthorizationErrorHandler} from './errorHandlers/authorization-error-handler';
 import {LoginComponent} from './components/login/login.component';
 import {HomePageComponent} from './components/home-page/home-page.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -28,6 +28,7 @@ import {httpInterceptProviders} from './httpInterceptors/HttpInteceptProviders';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {TooltipConfig, TooltipModule} from 'ngx-bootstrap/tooltip';
 import {PopoverConfig, PopoverModule} from 'ngx-bootstrap/popover';
+import {AuthenticationErrorHandler} from './errorHandlers/authentication-error-handler';
 
 const appRoutes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [PermissionGuard], data: {requiredRole: 'TaskUser'}},
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     TooltipConfig,
     PopoverConfig,
     DefaultErrorHandler,
-    AuthErrorHandler,
+    AuthorizationErrorHandler,
+    AuthenticationErrorHandler,
     ValidationErrorHandler,
     InternalServerErrorHandler,
     TaskSaveErrorHandler,

@@ -1,7 +1,7 @@
 export class TaskError {
   message: string;
 
-  getField(){
+  getField() {
     return this.message.split('.')[2];
   }
 
