@@ -67,7 +67,7 @@ export class HomePageComponent implements OnInit {
   }
   onRestoreEntry(taskDto: TaskDto) {
     taskDto.deleted = false;
-    this.taskService.createTask(taskDto).subscribe(() => {
+    this.taskService.updateTask(taskDto).subscribe(() => {
         this.toastService.addMessage('general.messages.success', 'success');
       },
       (error => {
