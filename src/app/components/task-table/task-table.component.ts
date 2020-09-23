@@ -26,6 +26,7 @@ export class TaskTableComponent implements OnInit {
   @Input()taskFilter: any;
   TaskFilters = TaskFilters;
   innerWidth: number;
+  today = new Date();
   ngOnInit(): void {
     this.innerWidth = window.screen.width;
   }
@@ -44,9 +45,6 @@ export class TaskTableComponent implements OnInit {
     if (taskDto.deleted === true && this.taskFilter === TaskFilters.DELETED) {
       return true;
     }
-    if (taskDto.deleted === false && this.taskFilter === TaskFilters.ALL) {
-      return true;
-    }
-    return false;
+    return taskDto.deleted === false && this.taskFilter === TaskFilters.ALL;
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Token} from "../classes/token";
+import {Token} from '../classes/token';
 
 @Injectable({
   providedIn: 'root'
@@ -8,30 +8,29 @@ export class AuthenticationService {
 
   constructor() { }
 
-  getPermissions(): string[]{
-    if(sessionStorage.getItem('token')){
-      return JSON.parse(sessionStorage.getItem('token')).permissions;
-    }else {
+  getRoles(): string[] {
+    if (sessionStorage.getItem('token')) {
+      return JSON.parse(sessionStorage.getItem('token')).groups;
+    } else {
       return [];
     }
   }
 
-  isLoggedIn(): boolean{
+  isLoggedIn(): boolean {
     return !!sessionStorage.getItem('token');
 
   }
 
-  setToken(token: Token){
+  setToken(token: Token) {
     sessionStorage.setItem('token', JSON.stringify(token));
   }
 
-  getToken(): Token{
+  getToken(): Token {
     return JSON.parse(sessionStorage.getItem('token'));
   }
 
-  hasPermission(permission: string): boolean{
-    return this.getPermissions().indexOf(permission) != -1;
-
+  hasRole(role: string): boolean {
+    return this.getRoles().indexOf(role) !== -1;
   }
 
   logout() {

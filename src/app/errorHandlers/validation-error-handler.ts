@@ -1,10 +1,10 @@
-import {HttpErrorResponse} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {HttpResponseErrorHandler} from "./http-response-error-handler";
-import {ToastService} from "../services/toast.service";
+import {HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpResponseErrorHandler} from './http-response-error-handler';
+import {ToastService} from '../services/toast.service';
 
 @Injectable()
-export class ValidationErrorHandler implements HttpResponseErrorHandler{
+export class ValidationErrorHandler implements HttpResponseErrorHandler {
 
   constructor(private toastService: ToastService) {}
 
@@ -13,7 +13,8 @@ export class ValidationErrorHandler implements HttpResponseErrorHandler{
   }
 
   handle(error: HttpErrorResponse) {
-    for(const errorMsg of error.error.validationErrors){
+    for (const errorMsg of error.error.validationErrors) {
+      console.log(errorMsg);
       this.toastService.addMessage(errorMsg, 'danger', 5000);
     }
   }

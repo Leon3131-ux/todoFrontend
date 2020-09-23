@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TaskService} from "../../services/task.service";
-import {TranslateService} from "@ngx-translate/core";
-import {ToastService} from "../../services/toast.service";
-import {TaskDto} from "../../classes/task-dto";
-import {AuthenticationService} from "../../services/authentication.service";
-import {Router} from "@angular/router";
+import {TaskService} from '../../services/task.service';
+import {TranslateService} from '@ngx-translate/core';
+import {ToastService} from '../../services/toast.service';
+import {TaskDto} from '../../classes/task-dto';
+import {AuthenticationService} from '../../services/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -67,7 +67,7 @@ export class HomePageComponent implements OnInit {
   }
   onRestoreEntry(taskDto: TaskDto) {
     taskDto.deleted = false;
-    this.taskService.saveTask(taskDto).subscribe(() => {
+    this.taskService.createTask(taskDto).subscribe(() => {
         this.toastService.addMessage('general.messages.success', 'success');
       },
       (error => {
@@ -85,7 +85,7 @@ export class HomePageComponent implements OnInit {
     });
     return tasksToBeReturned;
   }
-  logout(){
+  logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }

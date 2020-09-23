@@ -1,7 +1,6 @@
+
 export interface Token {
-  headerName: string;
-  token: string;
-  expiresAt: Date;
-  permissions: string[];
-  username: string;
+  access: string;
+  refresh: string;
+  roles: string[];
 }

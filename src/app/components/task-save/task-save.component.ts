@@ -11,7 +11,8 @@ import {TaskDto} from '../../classes/task-dto';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TaskError} from '../../classes/task-error';
 import {TaskService} from '../../services/task.service';
-import {ModalDirective} from "ngx-bootstrap/modal";
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-task-save',
@@ -80,20 +81,31 @@ export class TaskSaveComponent implements OnChanges, OnInit {
   submitTask() {
     if (this.saveTaskForm.valid) {
       this.saveTaskFormErrors = [];
-      this.taskService.saveTask(this.saveTaskForm.getRawValue()).subscribe(data => {
-        const taskDtoToEmit = new TaskDto(data);
-        this.savedTask.emit(taskDtoToEmit);
-      },
-        (error => {
-          this.saveTaskForm.markAsPristine();
-          error.error.validationErrors.forEach(validationError => {
-            this.saveTaskFormErrors.push(new TaskError(validationError));
-          })
-        }));
-    }else {
+      if (this.currentEntry.id == null) {
+        const data = this.taskService.createTask(this.saveTaskForm.getRawValue());
+        this.handleTaskReturn(data);
+      } else {
+        const data = this.taskService.updateTask(this.saveTaskForm.getRawValue());
+        this.handleTaskReturn(data);
+      }
+    } else {
       this.saveTaskForm.markAllAsTouched();
     }
   }
+
+  handleTaskReturn(response: Observable<TaskDto>) {
+    response.subscribe(data => {
+        const taskDtoToEmit = new TaskDto(data);
+        this.savedTask.emit(taskDtoToEmit);
+      },
+      (error => {
+        this.saveTaskForm.markAsPristine();
+        error.error.validationErrors.forEach(validationError => {
+          this.saveTaskFormErrors.push(new TaskError(validationError));
+        });
+      }));
+  }
+
   resetFormToLastState() {
     this.saveTaskForm.patchValue(this.currentEntry);
   }
@@ -112,7 +124,6 @@ export class TaskSaveComponent implements OnChanges, OnInit {
     }
     if (this.saveTaskFormErrors) {
       for (const taskError of this.saveTaskFormErrors) {
-        console.log(taskError.getField());
         if (taskError.getField() === field && formField.pristine) {
           return true;
         }
@@ -132,7 +143,7 @@ export class TaskSaveComponent implements OnChanges, OnInit {
     }
     if (this.saveTaskFormErrors) {
       for (const taskError of this.saveTaskFormErrors) {
-        if (taskError.getField() === field && formField.pristine && errorMessages.indexOf(taskError.message) == -1) {
+        if (taskError.getField() === field && formField.pristine && errorMessages.indexOf(taskError.message) === -1) {
           errorMessages.push(taskError.message);
         }
       }

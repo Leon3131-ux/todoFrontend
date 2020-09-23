@@ -21,7 +21,7 @@
           </div>
           <div class="form-group">
             <label for="dateField" class="w-100 text-white">{{ 'fields.general.date' | translate }}</label>
-            <input [ngClass]="{ 'is-invalid' : hasError('date')}" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" class="form-control" type="text" id="dateField" placeholder="{{ 'fields.general.date' | translate  }}" formControlName="date">
+            <input [ngClass]="{ 'is-invalid' : hasError('date')}" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" class="form-control" type="text" id="dateField" placeholder="{{ 'fields.general.date' | translate  }}" formControlName="date">
             <p *ngFor="let errorMsg of getErrors('date')" class="invalid-feedback">{{ errorMsg | translate }}</p>
           </div>
           <div class="custom-control custom-checkbox">

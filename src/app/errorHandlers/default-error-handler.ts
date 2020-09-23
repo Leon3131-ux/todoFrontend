@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {HttpErrorResponse} from "@angular/common/http";
-import {HttpResponseErrorHandler} from "./http-response-error-handler";
-import {AuthErrorHandler} from "./auth-error-handler";
-import {InternalServerErrorHandler} from "./internal-server-error-handler";
-import {ValidationErrorHandler} from "./validation-error-handler";
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
+import {HttpResponseErrorHandler} from './http-response-error-handler';
+import {AuthErrorHandler} from './auth-error-handler';
+import {InternalServerErrorHandler} from './internal-server-error-handler';
+import {ValidationErrorHandler} from './validation-error-handler';
 
 @Injectable()
-export class DefaultErrorHandler implements HttpResponseErrorHandler{
+export class DefaultErrorHandler implements HttpResponseErrorHandler {
 
   private readonly handlers: HttpResponseErrorHandler[];
 
@@ -14,7 +14,7 @@ export class DefaultErrorHandler implements HttpResponseErrorHandler{
     private authErrorHandler: AuthErrorHandler,
     private internalServerErrorHandler: InternalServerErrorHandler,
     private validationErrorHandler: ValidationErrorHandler
-  ){
+  ) {
     this.handlers = [
       authErrorHandler,
       internalServerErrorHandler,
@@ -22,9 +22,10 @@ export class DefaultErrorHandler implements HttpResponseErrorHandler{
     ];
   }
 
-  handle(error: HttpErrorResponse){
-    for(const handler of this.handlers){
-      if(handler.matches(error)){
+  handle(error: HttpErrorResponse) {
+    for (const handler of this.handlers) {
+      console.log(error);
+      if (handler.matches(error)) {
         handler.handle(error);
       }
     }

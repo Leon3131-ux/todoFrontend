@@ -15,22 +15,22 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {ToastModule} from './components/toast/toast.module';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
-import {DefaultErrorHandler} from "./errorHandlers/default-error-handler";
-import {ValidationErrorHandler} from "./errorHandlers/validation-error-handler";
-import {InternalServerErrorHandler} from "./errorHandlers/internal-server-error-handler";
-import {TaskSaveErrorHandler} from "./errorHandlers/task-save-error-handler";
-import {AuthErrorHandler} from "./errorHandlers/auth-error-handler";
+import {DefaultErrorHandler} from './errorHandlers/default-error-handler';
+import {ValidationErrorHandler} from './errorHandlers/validation-error-handler';
+import {InternalServerErrorHandler} from './errorHandlers/internal-server-error-handler';
+import {TaskSaveErrorHandler} from './errorHandlers/task-save-error-handler';
+import {AuthErrorHandler} from './errorHandlers/auth-error-handler';
 import {LoginComponent} from './components/login/login.component';
 import {HomePageComponent} from './components/home-page/home-page.component';
-import {RouterModule, Routes} from "@angular/router";
-import {PermissionGuard} from "./guards/permission.guard";
-import {httpInterceptProviders} from "./httpInterceptors/HttpInteceptProviders";
-import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
-import {TooltipConfig, TooltipModule} from "ngx-bootstrap/tooltip";
-import {PopoverConfig, PopoverModule} from "ngx-bootstrap/popover";
+import {RouterModule, Routes} from '@angular/router';
+import {PermissionGuard} from './guards/permission.guard';
+import {httpInterceptProviders} from './httpInterceptors/HttpInteceptProviders';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {TooltipConfig, TooltipModule} from 'ngx-bootstrap/tooltip';
+import {PopoverConfig, PopoverModule} from 'ngx-bootstrap/popover';
 
 const appRoutes: Routes = [
-  {path: '', component: HomePageComponent, canActivate: [PermissionGuard], data: {requiredPermission: 'USER'}},
+  {path: '', component: HomePageComponent, canActivate: [PermissionGuard], data: {requiredRole: 'TaskUser'}},
   {path: 'login', component: LoginComponent},
 ];
 
