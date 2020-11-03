@@ -39,6 +39,18 @@ export class ApiService {
     );
   }
   postSingle(path: string, object: any, errorHandler: HttpResponseErrorHandler = this.defaultErrorHandler): Observable<any> {
+    return this.http.post(`${environment.api_url}${path}`, object).pipe(
+      catchError(error => {
+        if (errorHandler.matches(error)) {
+          errorHandler.handle(error);
+        } else {
+          this.defaultErrorHandler.handle(error);
+        }
+        throw error;
+      })
+    );
+  }
+  postLogin(path: string, object: any, errorHandler: HttpResponseErrorHandler = this.defaultErrorHandler): Observable<any> {
     return this.http.post(`${environment.api_url}${path}`, object, {observe: 'response'}).pipe(
       catchError(error => {
         if (errorHandler.matches(error)) {

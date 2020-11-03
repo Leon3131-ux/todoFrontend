@@ -11,7 +11,7 @@ export class LoginService {
   constructor(private apiService: ApiService) { }
 
   login(user: User): Observable<any> {
-    return this.apiService.postSingle('/login', user);
+    return this.apiService.postLogin('/login', user);
   }
 
 }
