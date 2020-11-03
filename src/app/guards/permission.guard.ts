@@ -13,8 +13,7 @@ export class PermissionGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const requiredRole = route.data.requiredRole;
-    if (this.authenticationService.hasRole(requiredRole)) {
+    if (this.authenticationService.isLoggedIn()) {
       return true;
     } else {
       this.router.navigate(['/login']);

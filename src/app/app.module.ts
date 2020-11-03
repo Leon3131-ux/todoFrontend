@@ -31,7 +31,7 @@ import {PopoverConfig, PopoverModule} from 'ngx-bootstrap/popover';
 import {AuthenticationErrorHandler} from './errorHandlers/authentication-error-handler';
 
 const appRoutes: Routes = [
-  {path: '', component: HomePageComponent, canActivate: [PermissionGuard], data: {requiredRole: 'TaskUser'}},
+  {path: '', component: HomePageComponent, canActivate: [PermissionGuard]},
   {path: 'login', component: LoginComponent},
 ];
 

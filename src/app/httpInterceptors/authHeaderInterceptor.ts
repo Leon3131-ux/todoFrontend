@@ -12,7 +12,7 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authenticationService.isLoggedIn()) {
       const authHeader = request.clone({
-        setHeaders: {Authorization: 'Bearer ' + this.authenticationService.getToken().access}
+        setHeaders: {Authorization: 'Bearer ' + this.authenticationService.getToken()}
       });
       return next.handle(authHeader);
     }

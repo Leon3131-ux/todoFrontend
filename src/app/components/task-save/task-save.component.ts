@@ -81,11 +81,13 @@ export class TaskSaveComponent implements OnChanges, OnInit {
   submitTask() {
     if (this.saveTaskForm.valid) {
       this.saveTaskFormErrors = [];
+      const taskDto = new TaskDto(this.saveTaskForm.getRawValue());
+      taskDto.deleted = false;
       if (this.currentEntry.id == null) {
-        const data = this.taskService.createTask(this.saveTaskForm.getRawValue());
+        const data = this.taskService.createTask(taskDto);
         this.handleTaskReturn(data);
       } else {
-        const data = this.taskService.updateTask(this.saveTaskForm.getRawValue());
+        const data = this.taskService.updateTask(taskDto);
         this.handleTaskReturn(data);
       }
     } else {
