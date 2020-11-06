@@ -23,7 +23,8 @@
       },
       "date": {
         "invalid": "Ungüliges Datum",
-        "bsDate": "Ungüliges Datum"
+        "bsDate": "Ungüliges Datum",
+        "required": "Datum wird benötigt"
       }
     },
     "general": {
